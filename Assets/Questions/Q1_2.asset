@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3557b0469f8dc8a49827454987fecf48, type: 3}
+  m_Name: Q1_2
+  m_EditorClassIdentifier: 
+  title: Konkurenz
+  question: "Woher kommt in Zukunft die gr\xF6\xDFte Konkurzenz f\xFCr die Finanzbranche?"
+  answers:
+  - "Entit\xE4ten innerhalb des Finanzsektors"
+  - "Gro\xDFe, etablierte Technologiekonzerne"
+  - StartUps/FinTechs
+  hasSlider: 0
