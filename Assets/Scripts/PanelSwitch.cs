@@ -17,7 +17,7 @@ public class PanelSwitch : MonoBehaviour
     [SerializeField]
     private Transform categoryRoot;
     private List<GameObject> categoryButtons = new List<GameObject>();
-    public Category currentCategory { get; private set; }
+    public int currentCategory { get; private set; }
 
     [Header("Answers")]
     [SerializeField]
@@ -37,17 +37,20 @@ public class PanelSwitch : MonoBehaviour
     private Button okButton;
 
     private List<GameObject> answerButtons = new List<GameObject>();
+    private ScreenSaver screenSaver;
 
 
     void Start()
     {
+        screenSaver = GetComponent<ScreenSaver>();
+
         for (int i = 0; i < topicButtons.Length; i++)
         {
             int j = i;
             topicButtons[j].GetComponent<Button>().onClick.AddListener(delegate { SwitchTopic(j); });
             topicButtons[j].GetComponent<ButtonHighlighter>().Init();
         }
-        currentTopic = 0;
+        currentTopic = -1;
         SwitchTopic(currentTopic);
 
         for (int i = 0; i < Enum.GetNames(typeof(Category)).Length; i++)
@@ -55,7 +58,7 @@ public class PanelSwitch : MonoBehaviour
             int j = i;
             Category category = (Category)j;
             var button = Instantiate(categoryButtonPrefab, categoryRoot);
-            button.GetComponent<Button>().onClick.AddListener(delegate { SwitchCategory(category); });
+            button.GetComponent<Button>().onClick.AddListener(delegate { SwitchCategory((int)category); });
             string name = "";
             switch (category)
             {
@@ -85,9 +88,22 @@ public class PanelSwitch : MonoBehaviour
             button.GetComponent<ButtonHighlighter>().Init();
             categoryButtons.Add(button);
         }
-        currentCategory = 0;
+        currentCategory = -1;
         SwitchCategory(currentCategory);
         ActivateOKButton(false);
+    }
+
+    private void CheckForScreensaverInput()
+    {
+        screenSaver.GetInput(currentCategory, currentTopic);
+    }
+
+    public void ActivateScreensaver()
+    {
+        currentTopic = -1;
+        SwitchTopic(currentTopic);
+        currentCategory = -1;
+        SwitchCategory(currentCategory);
     }
 
     public void SwitchTopic(int topicIndex)
@@ -96,26 +112,40 @@ public class PanelSwitch : MonoBehaviour
         {
             topicButtons[i].GetComponent<ButtonHighlighter>().SelectButton(i == topicIndex);
         }
+        if (topicIndex < 0)
+        {
+            return;
+        }
         currentTopic = topicIndex;
         var question = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         OnQuestionChanged(question);
 
         //Debug.LogFormat("Switched to Topic {0}", topicIndex + 1);
+        CheckForScreensaverInput();
     }
 
-    public void SwitchCategory(Category selectedCategorie)
+    public void SwitchCategory(int selectedCategorie)
     {
         for (int i = 0; i < categoryButtons.Count; i++)
         {
-            categoryButtons[i].GetComponent<ButtonHighlighter>().SelectButton(i == (int)selectedCategorie);
+            categoryButtons[i].GetComponent<ButtonHighlighter>().SelectButton(i == selectedCategorie);
+        }
+
+        if (selectedCategorie < 0)
+        {
+            return;
         }
 
         if (currentCategory != selectedCategorie)
         {
             currentCategory = selectedCategorie;
             ActivateOKButton(false);
+
+            //SwitchCategory(currentCategory);
+
             //Debug.LogFormat("Category switchted to {0}", selectedCategorie.ToString());
         }
+        CheckForScreensaverInput();
     }
 
     private void SetupAnswers(QuestionContainer question)
@@ -169,7 +199,7 @@ public class PanelSwitch : MonoBehaviour
         var question = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         OnQuestionChanged(question);
     }
-    private Transform GetRow (int maxQuestions, int currentIteration)
+    private Transform GetRow(int maxQuestions, int currentIteration)
     {
         Transform selected = null;
 

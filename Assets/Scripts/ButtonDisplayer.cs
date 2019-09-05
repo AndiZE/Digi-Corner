@@ -11,7 +11,6 @@ public class ButtonDisplayer : MonoBehaviour
 
     public QuestionContainer GetCurrentQuestion()
     {
-        print(currentIndex);
         return questions[currentIndex];
     }
 
