@@ -5,5 +5,5 @@
     Categorie3,
     Categorie4,
     Categorie5,
-    Categorie6,
+    Categorie6
 }

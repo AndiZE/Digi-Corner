@@ -16,7 +16,13 @@ MonoBehaviour:
   question: "Was sind die gef\xE4hrlichsten Cyber-Bedrohungen f\xFCr Unternehmen am
     \xF6sterriechen Finanzmarkt?"
   answers:
-  - Ransomware/Malware
-  - Phising/Social Engineering
-  - Denial of Service/Angriffe auf Websites
+  - 'Ransomware/
+
+    Malware'
+  - 'Phising/
+
+    Social Engineering'
+  - 'Denial of Service/
+
+    Angriffe auf Websites'
   hasSlider: 0

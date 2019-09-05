@@ -16,7 +16,9 @@ MonoBehaviour:
   question: "Welche sind die verbreitesten digitalen Kan\xE4le f\xFCr Kundenkommunikation?"
   answers:
   - "Apps f\xFCr mobile Ger\xE4te"
-  - Online-Kundenportale
+  - 'Online-
+
+    Kundenportale'
   - Chatbots
   - Videokonferenzen
   - Soziale Medien

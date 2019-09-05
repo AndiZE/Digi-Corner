@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Q1_1
   m_EditorClassIdentifier: 
   title: Interne Treiber
-  question: "Was ist der haupttreiber f\xFCr die Digitalisierung in den Unternehmen
+  question: "Was ist der Haupttreiber f\xFCr die Digitalisierung in den Unternehmen
     am \xF6sterreichischen Finanzmarkt?"
   answers:
   - IT

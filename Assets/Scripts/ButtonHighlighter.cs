@@ -1,27 +1,45 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class ButtonHighlighter : MonoBehaviour
 {
+    [Header("Button")]
     [SerializeField]
-    [Range(0f, 1f)]
-    private float deactivateStrengh = 0.6f;
-    private Color originalColor;
-    private Color deactivateColor;
-    private Image image;
+    private Color buttonActiveColor;
+    [SerializeField]
+    private Color buttonPassiveColor;
 
+    [Header("Font")]
+    [SerializeField]
+    private Color fontColorActive;
+    [SerializeField]
+    private Color fontColorPassive;
+
+    private Image image;
+    private Text text;
+
+    [SerializeField]
+    private bool useOutline = true;
+    private Outline outline;
     public void Init()
     {
         image = GetComponent<Image>();
-        originalColor = image.color;
-        deactivateColor = image.color;
-        deactivateColor.a = deactivateStrengh;
+        text = GetComponentInChildren<Text>();
+
+        image.color = buttonActiveColor;
+        text.color = fontColorActive;
+
+        outline = GetComponent<Outline>();
     }
 
     public void SelectButton(bool currentSelected)
     {
-        image.color = currentSelected ? originalColor : deactivateColor;
+        image.color = currentSelected ? buttonActiveColor : buttonPassiveColor;
+        text.color = currentSelected ? fontColorActive : fontColorPassive;
+        if (useOutline && outline != null)
+            outline.effectDistance = currentSelected ? new Vector2(2f,0f) : new Vector2(2,2);
+            //outline.enabled = currentSelected ? false : true;
     }
 
 }

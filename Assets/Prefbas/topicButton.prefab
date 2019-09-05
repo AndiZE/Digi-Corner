@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.30534315, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -227,4 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0e161781b4b0544a9a51dea67cb955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deactivateStrengh: 0.6
+  buttonActiveColor: {r: 1, g: 1, b: 1, a: 1}
+  buttonPassiveColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColorActive: {r: 0.9176471, g: 0.39607847, b: 0.043137256, a: 1}
+  fontColorPassive: {r: 0.6784314, g: 0.6745098, b: 0.6784314, a: 1}

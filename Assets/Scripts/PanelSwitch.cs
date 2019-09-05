@@ -23,11 +23,18 @@ public class PanelSwitch : MonoBehaviour
     [SerializeField]
     private GameObject answerButtonPrefab;
     [SerializeField]
-    private Transform answerButtonRow;
+    private Transform answerButtonRowUp;
+    [SerializeField]
+    private Transform answerButtonRowMiddle;
+    [SerializeField]
+    private Transform answerButtonRowDown;
     [SerializeField]
     private Text titleText;
     [SerializeField]
     private Text questionText;
+
+    [SerializeField]
+    private Button okButton;
 
     private List<GameObject> answerButtons = new List<GameObject>();
 
@@ -49,14 +56,38 @@ public class PanelSwitch : MonoBehaviour
             Category category = (Category)j;
             var button = Instantiate(categoryButtonPrefab, categoryRoot);
             button.GetComponent<Button>().onClick.AddListener(delegate { SwitchCategory(category); });
-            button.GetComponentInChildren<Text>().text = category.ToString();
-            button.name = category.ToString();
+            string name = "";
+            switch (category)
+            {
+                case Category.Categorie1:
+                    name = "Versicherungs- \n unternehmen";
+                    break;
+                case Category.Categorie2:
+                    name = "Pensionskassen";
+                    break;
+                case Category.Categorie3:
+                    name = "Betriebliche Vorsorge \n ";
+                    break;
+                case Category.Categorie4:
+                    name = "Kreditinstitute \n ";
+                    break;
+                case Category.Categorie5:
+                    name = "Wertpapier- \n dienstleister";
+                    break;
+
+                case Category.Categorie6:
+                    name = "Fondsindustrie \n ";
+                    break;
+
+            }
+            button.GetComponentInChildren<Text>().text = name;
+            button.name = name;
             button.GetComponent<ButtonHighlighter>().Init();
             categoryButtons.Add(button);
         }
         currentCategory = 0;
         SwitchCategory(currentCategory);
-
+        ActivateOKButton(false);
     }
 
     public void SwitchTopic(int topicIndex)
@@ -82,6 +113,7 @@ public class PanelSwitch : MonoBehaviour
         if (currentCategory != selectedCategorie)
         {
             currentCategory = selectedCategorie;
+            ActivateOKButton(false);
             //Debug.LogFormat("Category switchted to {0}", selectedCategorie.ToString());
         }
     }
@@ -95,10 +127,14 @@ public class PanelSwitch : MonoBehaviour
         }
         answerButtons.Clear();
 
+        Transform selectedRow;
+
         int count = question.answers.Length;
         for (int i = 0; i < count; i++)
         {
-            var button = Instantiate(answerButtonPrefab, answerButtonRow);
+            selectedRow = GetRow(question.answers.Length, i);
+
+            var button = Instantiate(answerButtonPrefab, selectedRow);
             int index = i;
             button.GetComponent<Button>().onClick.AddListener(delegate { OnAnswerClicked(index); });
             button.GetComponentInChildren<Text>().text = question.answers[i];
@@ -111,10 +147,12 @@ public class PanelSwitch : MonoBehaviour
         SetupAnswers(question);
         titleText.text = question.title;
         questionText.text = question.question;
+        ActivateOKButton(false);
     }
 
     private void OnAnswerClicked(int Index)
     {
+        ActivateOKButton(true);
         //Debug.LogFormat("Answer {0} clicked", Index + 1);
     }
 
@@ -131,7 +169,41 @@ public class PanelSwitch : MonoBehaviour
         var question = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         OnQuestionChanged(question);
     }
+    private Transform GetRow (int maxQuestions, int currentIteration)
+    {
+        Transform selected = null;
+
+        switch (maxQuestions)
+        {
+            //all in one Row
+            case 3:
+            case 4:
+                {
+                    selected = answerButtonRowMiddle;
+                    break;
+                }
+            case 6:
+            case 7:
+                {
+                    //First 3 up, rest (up to total of 7) down
+                    if (currentIteration < 3)
+                    {
+                        selected = answerButtonRowUp;
+                    }
+                    else
+                    {
+                        selected = answerButtonRowDown;
+                    }
+                    break;
+                }
+        }
 
 
+        return selected;
+    }
 
+    private void ActivateOKButton(bool activate)
+    {
+        okButton.interactable = activate;
+    }
 }
