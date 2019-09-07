@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Konkurenz
   question: "Woher kommt in Zukunft die gr\xF6\xDFte Konkurzenz f\xFCr die Finanzbranche?"
+  icon: {fileID: 21300000, guid: cc4b4e4ff1105c041a0c911bd2475421, type: 3}
   answers:
   - "Entit\xE4ten innerhalb des Finanzsektors"
   - "Gro\xDFe, etablierte Technologiekonzerne"

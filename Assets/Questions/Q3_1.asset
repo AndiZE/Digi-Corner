@@ -15,5 +15,6 @@ MonoBehaviour:
   title: Big Data
   question: Wieviele Unternehmen nutzen bereits Big Data Analytics oder planen die
     Nutung innerhalb von 3 Jarhen?
+  icon: {fileID: 21300000, guid: ff67d7db1f3206c4da89b5d078b4e51e, type: 3}
   answers: []
   hasSlider: 1

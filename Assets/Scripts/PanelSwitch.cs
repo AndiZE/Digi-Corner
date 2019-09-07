@@ -39,10 +39,14 @@ public class PanelSwitch : MonoBehaviour
     private List<GameObject> answerButtons = new List<GameObject>();
     private ScreenSaver screenSaver;
 
+    private bool isActive = false;
+    private TouchInput touchInput;
+
 
     void Start()
     {
         screenSaver = GetComponent<ScreenSaver>();
+        touchInput = GetComponent<TouchInput>();
 
         for (int i = 0; i < topicButtons.Length; i++)
         {
@@ -96,6 +100,11 @@ public class PanelSwitch : MonoBehaviour
     private void CheckForScreensaverInput()
     {
         screenSaver.GetInput(currentCategory, currentTopic);
+        if (!isActive && currentCategory >= 0 && currentTopic >= 0)
+        {
+            isActive = true;
+            touchInput.Init();
+        }
     }
 
     public void ActivateScreensaver()
@@ -104,6 +113,7 @@ public class PanelSwitch : MonoBehaviour
         SwitchTopic(currentTopic);
         currentCategory = -1;
         SwitchCategory(currentCategory);
+        isActive = false;
     }
 
     public void SwitchTopic(int topicIndex)
@@ -119,7 +129,7 @@ public class PanelSwitch : MonoBehaviour
         currentTopic = topicIndex;
         var question = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         OnQuestionChanged(question);
-
+        touchInput.Init();
         //Debug.LogFormat("Switched to Topic {0}", topicIndex + 1);
         CheckForScreensaverInput();
     }
@@ -236,4 +246,28 @@ public class PanelSwitch : MonoBehaviour
     {
         okButton.interactable = activate;
     }
+
+    public Sprite GetNextQuestionIcon()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetNextIcon();
+    }
+
+    public Sprite GetPreviousQuestionIcon()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetPreviousIcon();
+    }
+
+    public Sprite GetCurrentQuestionIcon()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentIcon();
+    }
+    public Sprite GetSecondQuestionIcon()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetSecondIcon();
+    }
+    public Sprite GetLastQuestionIcon()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetLastIcon();
+    }
+
 }

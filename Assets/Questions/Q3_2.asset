@@ -15,5 +15,6 @@ MonoBehaviour:
   title: Robotic Process Automation
   question: Wieviele Unternehmen nutzen bereits Robotic Process Automation oder planen
     die Nutzung innerhalb von 3 Jahren?
+  icon: {fileID: 21300000, guid: 6244a93ff5bdf62498701a5ecd2f81fb, type: 3}
   answers: []
   hasSlider: 1

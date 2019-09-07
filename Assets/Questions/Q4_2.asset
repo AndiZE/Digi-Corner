@@ -15,6 +15,7 @@ MonoBehaviour:
   title: Zukunft der Kundenkommunikation
   question: "Welche digitalen an\xE4le f\xFCr Kundenkommunikation haben das gr\xF6\xDFte
     Wachstumspotenzial?"
+  icon: {fileID: 21300000, guid: 3974f17dcf23ea64288fdfb9310561cb, type: 3}
   answers:
   - "Apps f\xFCr mobile Ger\xE4te"
   - 'Online-

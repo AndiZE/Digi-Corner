@@ -11,19 +11,29 @@ public class TouchInput : MonoBehaviour
     [SerializeField]
     private Transform inputArea;
     private float xInput = 0;
-    private UIWheel uiWheel;
     private bool isInputActive;
+    [SerializeField]
+    private SplineMover[] splineIcons;
+    [SerializeField]
+    private float[] splinePositions;
+
+    private PanelSwitch panelSwitch;
     private void Start()
     {
-        //wheel = GetComponentInParent<Wheel>();
         Input.simulateMouseWithTouches = true;
-        uiWheel = GetComponent<UIWheel>();
+        panelSwitch = GetComponent<PanelSwitch>();
+    }
+
+    public void Init()
+    {
+        splineIcons[0].Init(splinePositions[0], panelSwitch.GetCurrentQuestionIcon());
+        splineIcons[1].Init(splinePositions[1], panelSwitch.GetSecondQuestionIcon());
+        splineIcons[2].Init(splinePositions[2], panelSwitch.GetLastQuestionIcon());
     }
 
     public void ActivateInput(bool active)
     {
         isInputActive = active;
-        Debug.Log(active);
 
         if (!active)
         {
@@ -44,49 +54,86 @@ public class TouchInput : MonoBehaviour
     {
         if (isInputActive && Input.touchCount == 1)
         {
-            //for (int i = 0; i < Input.touchCount; i++)
-            //{
-            //    var touch = Input.GetTouch(i);
-
-            //    //Debug.Log(Input.touchCount);
-            //    //Check if Hitted object is Wheel
-            //    //if (hit.transform != null && hit.transform.GetInstanceID() == inputArea.GetInstanceID())
-            //    //{
-
-            //    //    if (touch.phase == TouchPhase.Moved)
-            //    //    {
-            //    //        xInput += touch.deltaPosition.x;
-            //    //        //wheel.SwapRotate(touch.deltaPosition.x);
-            //    //    }
-            //    //    else if (touch.phase == TouchPhase.Ended ||
-            //    //            touch.phase == TouchPhase.Canceled)
-            //    //    {
-            //    //        if (xInput > 0)
-            //    //        {
-            //    //            SwapRight();
-            //    //        }
-            //    //        else if (xInput < 0)
-            //    //        {
-            //    //            SwapRight();
-            //    //        }
-            //    //        xInput = 0;
-            //    //        //wheel.SwapEnd();
-            //    //    }
-            //    //    break;
-            //    //}
-
-            //}
             xInput += Input.GetTouch(0).deltaPosition.x;
         }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            SwapLeft();
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            SwapRight();
+        }
+
     }
 
     private void SwapLeft()
     {
-        uiWheel.Swap(false);
+        for (int i = 0; i < splineIcons.Length; i++)
+        {
+            splineIcons[i].Rotate(GetNextPosition(splineIcons[i].currentPosition), panelSwitch.GetNextQuestionIcon());
+        }
+        panelSwitch.SwitchNextQuestion();
     }
 
     private void SwapRight()
     {
-        uiWheel.Swap(true);
+        for (int i = 0; i < splineIcons.Length; i++)
+        {
+            splineIcons[i].Rotate(GetPreviousPosition(splineIcons[i].currentPosition), panelSwitch.GetPreviousQuestionIcon());
+        }
+        panelSwitch.SwitchPreviousQuestion();
+    }
+
+    private float GetNextPosition(float position)
+    {
+        float temp = 0f;
+
+        if (position + 0.2f > 7)
+        {
+            position = 0f;
+        }
+
+        for (int i = 0; i < splinePositions.Length; i++)
+        {
+            if (position + 0.2f > splinePositions[splinePositions.Length - 1])
+            {
+                temp = 7;
+                break;
+            }
+
+            if (position + 0.2f > splinePositions[i] &&
+                position + 0.2f < splinePositions[i + 1])
+            {
+                //Last Index moves to first position
+                temp = splinePositions[i + 1];
+                break;
+            }
+        }
+        return temp;
+    }
+
+    private float GetPreviousPosition(float position)
+    {
+
+        float temp = 0f;
+        for (int i = 0; i < splinePositions.Length-1; i++)
+        {
+            if (position - 0.2f < splinePositions[0] || position - 0.2f > 6)
+            {
+                temp = splinePositions[splinePositions.Length - 1];
+                break;
+            }
+
+            if (position - 0.2f > splinePositions[i ] &&
+                position - 0.2f < splinePositions[i +1])
+            {
+                //Last Index moves to first position
+                temp = splinePositions[i];
+                break;
+            }
+        }
+        return temp;
     }
 }

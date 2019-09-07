@@ -15,6 +15,7 @@ MonoBehaviour:
   title: Gefahren
   question: "Was sind die gef\xE4hrlichsten Cyber-Bedrohungen f\xFCr Unternehmen am
     \xF6sterriechen Finanzmarkt?"
+  icon: {fileID: 21300000, guid: 6f8148a3fda4e9c4aa170f8f02d316b1, type: 3}
   answers:
   - 'Ransomware/
 

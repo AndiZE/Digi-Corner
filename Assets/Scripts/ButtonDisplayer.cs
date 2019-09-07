@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ButtonDisplayer : MonoBehaviour
 {
     [SerializeField]
-    private QuestionContainer [] questions;
+    private QuestionContainer[] questions;
     private int currentIndex = 0;
 
     public QuestionContainer GetCurrentQuestion()
@@ -30,5 +30,35 @@ public class ButtonDisplayer : MonoBehaviour
         {
             currentIndex = 0;
         }
+    }
+
+    public Sprite GetPreviousIcon()
+    {
+        return questions[(int)Modulo(currentIndex + 2, questions.Length)].icon;
+    }
+    public Sprite GetNextIcon()
+    {
+        return questions[(int)Modulo(currentIndex - 2, questions.Length)].icon;
+
+    }
+
+    float Modulo(float a, float b)
+    {
+        return a - b * Mathf.Floor(a / b);
+    }
+
+    public Sprite GetCurrentIcon()
+    {
+        return questions[currentIndex].icon;
+
+    }
+    public Sprite GetSecondIcon()
+    {
+        return questions[1].icon;
+    }
+
+    public Sprite GetLastIcon()
+    {
+        return questions[questions.Length - 1].icon;
     }
 }

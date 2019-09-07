@@ -15,6 +15,7 @@ MonoBehaviour:
   title: Interne Treiber
   question: "Was ist der Haupttreiber f\xFCr die Digitalisierung in den Unternehmen
     am \xF6sterreichischen Finanzmarkt?"
+  icon: {fileID: 21300000, guid: a614affbd8da4c143ac9b6a4e656ae3c, type: 3}
   answers:
   - IT
   - Finanzen

@@ -10,6 +10,7 @@ public class QuestionContainer : ScriptableObject
     public string title;
     [TextArea]
     public string question;
+    public Sprite icon;
 
     [TextArea]
     public string[] answers;
