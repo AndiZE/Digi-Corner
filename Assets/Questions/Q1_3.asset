@@ -16,15 +16,73 @@ MonoBehaviour:
   question: "Welche sind die am h\xE4ufigste fehlenden IT Skills in Unternehmen?"
   icon: {fileID: 21300000, guid: 116a50a9628988c4aaaea490e97396cf, type: 3}
   answers:
-  - Datenspezialisten
-  - Web/App- Entwickler
-  - Klassische Programmierer
-  - 'IT-Infrastruktur-
+  - answer: Datenspezialisten
+    percents:
+    - 36.11
+    - 30
+    - 16.67
+    - 22.5
+    - 0
+    - 33.33
+    isRightAnswer: 010000010001
+  - answer: Web/App- Entwickler
+    percents:
+    - 16.67
+    - 40
+    - 33.33
+    - 7.5
+    - 7.69
+    - 14.29
+    isRightAnswer: 000101000000
+  - answer: Klassische Programmierer
+    percents:
+    - 27.78
+    - 0
+    - 16.67
+    - 20
+    - 19.23
+    - 9.52
+    isRightAnswer: 000000000100
+  - answer: 'IT-Infrastruktur-
 
-    Achitekten'
-  - 'Buisness Analysten/
+      Architekten'
+    percents:
+    - 19.44
+    - 10
+    - 16.67
+    - 17.5
+    - 0
+    - 14.29
+    isRightAnswer: 000000000000
+  - answer: 'Buisness Analysten/
 
-    Consultants'
-  - IT-Security Spezialisten
-  - Projektmanager
+      Consultants'
+    percents:
+    - 25
+    - 10
+    - 16.67
+    - 15
+    - 3.85
+    - 4.76
+    isRightAnswer: 000000000000
+  - answer: 'IT-Security
+
+      Spezialisten'
+    percents:
+    - 25
+    - 0
+    - 0
+    - 10
+    - 0
+    - 9.52
+    isRightAnswer: 000000000000
+  - answer: Projektmanager
+    percents:
+    - 11.11
+    - 10
+    - 0
+    - 5
+    - 0
+    - 0
+    isRightAnswer: 000000000000
   hasSlider: 0

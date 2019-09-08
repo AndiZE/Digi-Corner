@@ -17,13 +17,37 @@ MonoBehaviour:
     \xF6sterriechen Finanzmarkt?"
   icon: {fileID: 21300000, guid: 6f8148a3fda4e9c4aa170f8f02d316b1, type: 3}
   answers:
-  - 'Ransomware/
+  - answer: 'Randomware/
 
-    Malware'
-  - 'Phising/
+      Malware'
+    percents:
+    - 27.78
+    - 20
+    - 16.67
+    - 25
+    - 15.38
+    - 28.57
+    isRightAnswer: 010101000101
+  - answer: 'Phishing/
 
-    Social Engineering'
-  - 'Denial of Service/
+      Social Engineering'
+    percents:
+    - 5.56
+    - 0
+    - 0
+    - 32.5
+    - 7.69
+    - 23.81
+    isRightAnswer: 000000010000
+  - answer: 'Denial of Service/
 
-    Angriffe auf Websites'
+      Angriffe auf Websites'
+    percents:
+    - 5.56
+    - 0
+    - 0
+    - 2.5
+    - 0
+    - 0
+    isRightAnswer: 000000000000
   hasSlider: 0

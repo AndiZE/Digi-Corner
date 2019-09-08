@@ -16,7 +16,31 @@ MonoBehaviour:
   question: "Woher kommt in Zukunft die gr\xF6\xDFte Konkurzenz f\xFCr die Finanzbranche?"
   icon: {fileID: 21300000, guid: cc4b4e4ff1105c041a0c911bd2475421, type: 3}
   answers:
-  - "Entit\xE4ten innerhalb des Finanzsektors"
-  - "Gro\xDFe, etablierte Technologiekonzerne"
-  - StartUps/FinTechs
+  - answer: "Entit\xE4ten innerhalb des Finanzsektors"
+    percents:
+    - 43.64
+    - 66.67
+    - 75
+    - 28.51
+    - 31.25
+    - 53.57
+    isRightAnswer: 010101000001
+  - answer: "gro\xDFe, etablierte Technologiekonzerne"
+    percents:
+    - 41.82
+    - 0
+    - 0
+    - 48.39
+    - 25
+    - 28.57
+    isRightAnswer: 000000010000
+  - answer: StartUps/FinTechs
+    percents:
+    - 14.55
+    - 33.33
+    - 25
+    - 25.81
+    - 43.75
+    - 17.86
+    isRightAnswer: 000000000100
   hasSlider: 0

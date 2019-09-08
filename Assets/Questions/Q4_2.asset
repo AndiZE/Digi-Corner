@@ -17,12 +17,58 @@ MonoBehaviour:
     Wachstumspotenzial?"
   icon: {fileID: 21300000, guid: 3974f17dcf23ea64288fdfb9310561cb, type: 3}
   answers:
-  - "Apps f\xFCr mobile Ger\xE4te"
-  - 'Online-
-
-    Kundenportale'
-  - Chatbots
-  - Videokonferenzen
-  - Soziale Medien
-  - Kooperationen mit Vergleichsportalen
+  - answer: "Apps f\xFCr mobile Ger\xE4te"
+    percents:
+    - 25
+    - 20
+    - 16.67
+    - 12.5
+    - 15.38
+    - 14.29
+    isRightAnswer: 000101000101
+  - answer: Online-Kundenportale
+    percents:
+    - 30.56
+    - 10
+    - 0
+    - 10
+    - 11.51
+    - 9.52
+    isRightAnswer: 010000000000
+  - answer: Chatbots
+    percents:
+    - 19.44
+    - 20
+    - 16.67
+    - 37.5
+    - 3.85
+    - 0
+    isRightAnswer: 000101000000
+  - answer: Videokonferenzen
+    percents:
+    - 22.22
+    - 0
+    - 0
+    - 45
+    - 7.69
+    - 4.76
+    isRightAnswer: 000000010000
+  - answer: Soziale Medien
+    percents:
+    - 2.78
+    - 10
+    - 16.67
+    - 40
+    - 7.69
+    - 14.29
+    isRightAnswer: 000001000001
+  - answer: "Kooperation mit \nVergleichsportalen"
+    percents:
+    - 5.56
+    - 0
+    - 0
+    - 35
+    - 3.85
+    - 9.52
+    isRightAnswer: 000000000000
   hasSlider: 0

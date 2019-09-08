@@ -17,8 +17,40 @@ MonoBehaviour:
     am \xF6sterreichischen Finanzmarkt?"
   icon: {fileID: 21300000, guid: a614affbd8da4c143ac9b6a4e656ae3c, type: 3}
   answers:
-  - IT
-  - Finanzen
-  - Vertrieb
-  - Innovationsabteilung
+  - answer: IT
+    percents:
+    - 88.89
+    - 90
+    - 50
+    - 85
+    - 61.54
+    - 85.71
+    isRightAnswer: 010101010101
+  - answer: Finanzen
+    percents:
+    - 2.78
+    - 30
+    - 33.33
+    - 2.5
+    - 7.69
+    - 9.52
+    isRightAnswer: 000000000000
+  - answer: Vertireb und Marketing
+    percents:
+    - 64.28
+    - 20.4
+    - 17.17
+    - 80.28
+    - 46.35
+    - 38.38
+    isRightAnswer: 000000000000
+  - answer: Innovationsabteilung
+    percents:
+    - 16.67
+    - 0
+    - 0
+    - 17.5
+    - 19.23
+    - 4.76
+    isRightAnswer: 000000000000
   hasSlider: 0

@@ -16,12 +16,58 @@ MonoBehaviour:
   question: "Welche sind die verbreitesten digitalen Kan\xE4le f\xFCr Kundenkommunikation?"
   icon: {fileID: 21300000, guid: 88d72d9ca0fa0964397d9510ec3a9a81, type: 3}
   answers:
-  - "Apps f\xFCr mobile Ger\xE4te"
-  - 'Online-
-
-    Kundenportale'
-  - Chatbots
-  - Videokonferenzen
-  - Soziale Medien
-  - Kooperationen mit Vergleichsportalen
+  - answer: "Apps f\xFCr mobile Ger\xE4te"
+    percents:
+    - 44.44
+    - 0
+    - 16.67
+    - 82.5
+    - 7.69
+    - 14.29
+    isRightAnswer: 000000010000
+  - answer: Online-Kundenportale
+    percents:
+    - 47.22
+    - 60
+    - 83.33
+    - 80
+    - 11.54
+    - 47.62
+    isRightAnswer: 000101000000
+  - answer: Chatbots
+    percents:
+    - 16.67
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    isRightAnswer: 000000000000
+  - answer: Videokonferenzen
+    percents:
+    - 16.67
+    - 30
+    - 16.67
+    - 20
+    - 23.08
+    - 52.38
+    isRightAnswer: 000000000101
+  - answer: Soziale Medien
+    percents:
+    - 66.67
+    - 0
+    - 16.67
+    - 45
+    - 19.23
+    - 14.29
+    isRightAnswer: 010000000000
+  - answer: "Kooperation mit \nVergleichsportalen"
+    percents:
+    - 50
+    - 0
+    - 0
+    - 35
+    - 0
+    - 4.76
+    isRightAnswer: 000000000000
   hasSlider: 0

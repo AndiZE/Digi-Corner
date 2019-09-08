@@ -16,5 +16,14 @@ MonoBehaviour:
   question: Wieviele Unternehmen nutzen bereits Big Data Analytics oder planen die
     Nutung innerhalb von 3 Jarhen?
   icon: {fileID: 21300000, guid: ff67d7db1f3206c4da89b5d078b4e51e, type: 3}
-  answers: []
+  answers:
+  - answer: 
+    percents:
+    - 41.76
+    - 10
+    - 0
+    - 85
+    - 11.54
+    - 23.81
+    isRightAnswer: 010101010101
   hasSlider: 1

@@ -177,7 +177,7 @@ public class PanelSwitch : MonoBehaviour
             var button = Instantiate(answerButtonPrefab, selectedRow);
             int index = i;
             button.GetComponent<Button>().onClick.AddListener(delegate { OnAnswerClicked(index); });
-            button.GetComponentInChildren<Text>().text = question.answers[i];
+            button.GetComponentInChildren<Text>().text = question.answers[i].answer;
             answerButtons.Add(button);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,9 +12,15 @@ public class QuestionContainer : ScriptableObject
     [TextArea]
     public string question;
     public Sprite icon;
-
-    [TextArea]
-    public string[] answers;
-
+    public AnswerContainer[] answers;
     public bool hasSlider;
+}
+
+[Serializable]
+public struct AnswerContainer
+{
+    [TextArea]
+    public string answer;
+    public float [] percents;
+    public bool [] isRightAnswer;
 }
