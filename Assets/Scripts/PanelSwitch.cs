@@ -35,6 +35,8 @@ public class PanelSwitch : MonoBehaviour
 
     [SerializeField]
     private Button okButton;
+    [SerializeField]
+    private GameObject answerSlider;
 
     private List<GameObject> answerButtons = new List<GameObject>();
     private ScreenSaver screenSaver;
@@ -42,11 +44,15 @@ public class PanelSwitch : MonoBehaviour
     private bool isActive = false;
     private TouchInput touchInput;
 
+    private AnswerManager answerManager;
+    private int currentAnswerIndex;
+    private float answerSliderValue;
 
     void Start()
     {
         screenSaver = GetComponent<ScreenSaver>();
         touchInput = GetComponent<TouchInput>();
+        answerManager = GetComponent<AnswerManager>();
 
         for (int i = 0; i < topicButtons.Length; i++)
         {
@@ -94,7 +100,15 @@ public class PanelSwitch : MonoBehaviour
         }
         currentCategory = -1;
         SwitchCategory(currentCategory);
+        okButton.onClick.AddListener(delegate { OnOkButtonClicked(); });
+        answerSlider.GetComponent<Slider>().onValueChanged.AddListener(OnAnswerSliderValueChanged);
         ActivateOKButton(false);
+    }
+
+    private void OnAnswerSliderValueChanged(float value)
+    {
+        answerSliderValue = value;
+        ActivateOKButton(true);
     }
 
     private void CheckForScreensaverInput()
@@ -114,6 +128,20 @@ public class PanelSwitch : MonoBehaviour
         currentCategory = -1;
         SwitchCategory(currentCategory);
         isActive = false;
+        answerManager.DeactivatePanel();
+    }
+
+    private void OnOkButtonClicked()
+    {
+        var currentQuestion = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
+        if (currentQuestion.hasSlider)
+        {
+            answerManager.SetupAnswerSingle(answerSliderValue, currentQuestion.answers[0].percents[currentCategory]);
+        }
+        else
+        {
+            answerManager.SetupAnswerMulti(currentQuestion, currentAnswerIndex, currentCategory);
+        }
     }
 
     public void SwitchTopic(int topicIndex)
@@ -132,6 +160,7 @@ public class PanelSwitch : MonoBehaviour
         touchInput.Init();
         //Debug.LogFormat("Switched to Topic {0}", topicIndex + 1);
         CheckForScreensaverInput();
+        answerManager.DeactivatePanel();
     }
 
     public void SwitchCategory(int selectedCategorie)
@@ -156,6 +185,7 @@ public class PanelSwitch : MonoBehaviour
             //Debug.LogFormat("Category switchted to {0}", selectedCategorie.ToString());
         }
         CheckForScreensaverInput();
+        answerManager.DeactivatePanel();
     }
 
     private void SetupAnswers(QuestionContainer question)
@@ -166,6 +196,17 @@ public class PanelSwitch : MonoBehaviour
             Destroy(item);
         }
         answerButtons.Clear();
+
+        if (question.hasSlider)
+        {
+            answerSlider.SetActive(true);
+            return;
+        }
+        else
+        {
+            answerSlider.SetActive(false);
+        }
+
 
         Transform selectedRow;
 
@@ -178,12 +219,15 @@ public class PanelSwitch : MonoBehaviour
             int index = i;
             button.GetComponent<Button>().onClick.AddListener(delegate { OnAnswerClicked(index); });
             button.GetComponentInChildren<Text>().text = question.answers[i].answer;
+            button.GetComponent<ButtonHighlighter>().Init();
+            button.GetComponent<ButtonHighlighter>().SelectButton(false);
             answerButtons.Add(button);
         }
     }
 
     private void OnQuestionChanged(QuestionContainer question)
     {
+        answerManager.DeactivatePanel();
         SetupAnswers(question);
         titleText.text = question.title;
         questionText.text = question.question;
@@ -193,7 +237,13 @@ public class PanelSwitch : MonoBehaviour
     private void OnAnswerClicked(int Index)
     {
         ActivateOKButton(true);
-        //Debug.LogFormat("Answer {0} clicked", Index + 1);
+        currentAnswerIndex = Index;
+
+        for (int i = 0; i < answerButtons.Count; i++)
+        {
+            answerButtons[i].GetComponent<ButtonHighlighter>().SelectButton(i == currentAnswerIndex);
+        }
+
     }
 
     public void SwitchNextQuestion()

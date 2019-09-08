@@ -56,7 +56,7 @@ public class TouchInput : MonoBehaviour
         {
             xInput += Input.GetTouch(0).deltaPosition.x;
         }
-
+#if UNITY_EDITOR
         if (Input.GetMouseButtonDown(2))
         {
             SwapLeft();
@@ -65,7 +65,7 @@ public class TouchInput : MonoBehaviour
         {
             SwapRight();
         }
-
+#endif
     }
 
     private void SwapLeft()

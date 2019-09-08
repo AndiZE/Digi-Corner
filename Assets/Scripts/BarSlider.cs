@@ -18,8 +18,10 @@ public class BarSlider : MonoBehaviour
 
     [SerializeField]
     private float fillDuration = 1f;
+    [SerializeField]
+    private GameObject richtigImage;
 
-    private void Start()
+    private void Awake()
     {
         slider = GetComponent<Slider>();
         selectedOutline = GetComponent<Image>();
@@ -43,10 +45,16 @@ public class BarSlider : MonoBehaviour
 
     public void ActivateBar(float amount, bool isRightAnswer, bool isUserAnswer, string info)
     {
+        richtigImage?.SetActive(false);
         if (isRightAnswer || isUserAnswer)
         {
             selectedOutline.enabled = true;
             selectedOutline.sprite = isRightAnswer ? rightAnswer : userAnswer;
+            if (isRightAnswer && isUserAnswer)
+            {
+                selectedOutline.sprite = rightAnswer;
+                richtigImage.SetActive(true);
+            }
         }
         else
         {
@@ -55,5 +63,10 @@ public class BarSlider : MonoBehaviour
         StartCoroutine(FillBar(amount));
         infoText.text = info;
         userSelectionText.SetActive(isUserAnswer);
+    }
+
+    public void SimpleActivateBar(float amount)
+    {
+        StartCoroutine(FillBar(amount));
     }
 }
