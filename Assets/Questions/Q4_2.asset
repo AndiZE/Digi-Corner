@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Q4_2
   m_EditorClassIdentifier: 
   title: Zukunft der Kundenkommunikation
-  question: "Welche digitalen an\xE4le f\xFCr Kundenkommunikation haben das gr\xF6\xDFte
+  question: "Welche digitalen Kan\xE4le f\xFCr Kundenkommunikation haben das gr\xF6\xDFte
     Wachstumspotenzial?"
-  icon: {fileID: 21300000, guid: 3974f17dcf23ea64288fdfb9310561cb, type: 3}
+  icon: {fileID: 21300000, guid: 904cfce88b172bd4fb6739d4ba38bd76, type: 3}
   answers:
   - answer: "Apps f\xFCr mobile Ger\xE4te"
     percents:
@@ -26,7 +26,9 @@ MonoBehaviour:
     - 15.38
     - 14.29
     isRightAnswer: 000101000101
-  - answer: Online-Kundenportale
+  - answer: 'Online-
+
+      Kundenportale'
     percents:
     - 30.56
     - 10

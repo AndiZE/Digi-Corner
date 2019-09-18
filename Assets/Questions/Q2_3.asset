@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Q2_3
   m_EditorClassIdentifier: 
   title: OpRisk
-  question: Bei wieviel Unternehmen ist Cyberrisiko Teil von OpRisk?
-  icon: {fileID: 21300000, guid: d64e6b894b56abd49bb3428b18ab0bc1, type: 3}
+  question: Bei wie vielen Unternehmen ist Cyberrisiko Teil von OpRisk?
+  icon: {fileID: 21300000, guid: 836896aef2e91d3419c5739e3ba01cfc, type: 3}
   answers:
   - answer: 
     percents:

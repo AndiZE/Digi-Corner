@@ -73,23 +73,23 @@ public class PanelSwitch : MonoBehaviour
             switch (category)
             {
                 case Category.Categorie1:
-                    name = "Versicherungs- \n unternehmen";
+                    name = "Versicherungs-\nunternehmen";
                     break;
                 case Category.Categorie2:
-                    name = "Pensionskassen";
+                    name = "Pensionskassen\n";
                     break;
                 case Category.Categorie3:
-                    name = "Betriebliche Vorsorge \n ";
+                    name = "Betriebliche\nVorsorgekassen  ";
                     break;
                 case Category.Categorie4:
-                    name = "Kreditinstitute \n ";
+                    name = "Kreditinstitute\n ";
                     break;
                 case Category.Categorie5:
-                    name = "Wertpapier- \n dienstleister";
+                    name = "Wertpapier-\ndienstleister";
                     break;
 
                 case Category.Categorie6:
-                    name = "Fondsindustrie \n ";
+                    name = "Fondsindustrie\n ";
                     break;
 
             }
@@ -131,17 +131,20 @@ public class PanelSwitch : MonoBehaviour
         answerManager.DeactivatePanel();
     }
 
-    private void OnOkButtonClicked()
+    private void OnOkButtonClicked(bool categorySwitched = false)
     {
         var currentQuestion = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         if (currentQuestion.hasSlider)
         {
-            answerManager.SetupAnswerSingle(answerSliderValue, currentQuestion.answers[0].percents[currentCategory]);
+            answerManager.SetupAnswerSingle(answerSliderValue, currentQuestion.answers[0].percents[currentCategory], categorySwitched);
         }
         else
         {
-            answerManager.SetupAnswerMulti(currentQuestion, currentAnswerIndex, currentCategory);
+            answerManager.SetupAnswerMulti(currentQuestion, currentAnswerIndex, currentCategory, categorySwitched);
         }
+        currentAnswerIndex = -1;
+        answerSliderValue = 0;
+        answerSlider.GetComponent<Slider>().value = 0f;
     }
 
     public void SwitchTopic(int topicIndex)
@@ -155,6 +158,7 @@ public class PanelSwitch : MonoBehaviour
             return;
         }
         currentTopic = topicIndex;
+        topicButtons[currentTopic].GetComponent<ButtonDisplayer>().OnTopicSwitched();
         var question = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         OnQuestionChanged(question);
         touchInput.Init();
@@ -178,14 +182,23 @@ public class PanelSwitch : MonoBehaviour
         if (currentCategory != selectedCategorie)
         {
             currentCategory = selectedCategorie;
-            ActivateOKButton(false);
+            //ActivateOKButton(false);
 
             //SwitchCategory(currentCategory);
 
             //Debug.LogFormat("Category switchted to {0}", selectedCategorie.ToString());
         }
         CheckForScreensaverInput();
-        answerManager.DeactivatePanel();
+
+        if (answerManager.isActive)
+        {
+            answerSliderValue = 0;
+            OnOkButtonClicked(true);
+        }
+        else
+        {
+            answerManager.DeactivatePanel();
+        }
     }
 
     private void SetupAnswers(QuestionContainer question)

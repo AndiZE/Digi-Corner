@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3557b0469f8dc8a49827454987fecf48, type: 3}
   m_Name: Q1_2
   m_EditorClassIdentifier: 
-  title: Konkurenz
-  question: "Woher kommt in Zukunft die gr\xF6\xDFte Konkurzenz f\xFCr die Finanzbranche?"
-  icon: {fileID: 21300000, guid: cc4b4e4ff1105c041a0c911bd2475421, type: 3}
+  title: Konkurrenz
+  question: "Woher kommt in Zukunft die gr\xF6\xDFte Konkurrenz f\xFCr die Finanzbranche?"
+  icon: {fileID: 21300000, guid: 9fd9c502f4fa72548b11a0d6add30e7d, type: 3}
   answers:
   - answer: "Entit\xE4ten innerhalb des Finanzsektors"
     percents:

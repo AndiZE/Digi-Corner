@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Q3_1
   m_EditorClassIdentifier: 
   title: Big Data
-  question: Wieviele Unternehmen nutzen bereits Big Data Analytics oder planen die
-    Nutung innerhalb von 3 Jarhen?
-  icon: {fileID: 21300000, guid: ff67d7db1f3206c4da89b5d078b4e51e, type: 3}
+  question: Wie viele Unternehmen nutzen bereits Big Data Analytics oder planen die
+    Nutzung innerhalb von 3 Jahren?
+  icon: {fileID: 21300000, guid: da2f9c5f46513a44b8b6392e9c7baf77, type: 3}
   answers:
   - answer: 
     percents:

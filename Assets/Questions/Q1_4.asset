@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Kooperation mit FinTechs
   question: "Wie viele Unternehmen des \xF6sterreichischen Finanzmarktes kooperieren
     bereits mit FinTech/Startups?"
-  icon: {fileID: 21300000, guid: 2e75b8a137eac5a4b8f726003fd18795, type: 3}
+  icon: {fileID: 21300000, guid: b55b21d6775519249a0a266099c7720e, type: 3}
   answers:
   - answer: 
     percents:

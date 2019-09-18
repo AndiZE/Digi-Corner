@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Cloud Services
   question: "Wie h\xE4ufig treten bei internen \xDCberpr\xFCfungen von Cloud-Services
     Probleme zu Tage?"
-  icon: {fileID: 21300000, guid: 3e4c71c2e6149504d902d408ee32105c, type: 3}
+  icon: {fileID: 21300000, guid: 5a99987659d69914885c9e8dfcc590d7, type: 3}
   answers:
   - answer: 
     percents:

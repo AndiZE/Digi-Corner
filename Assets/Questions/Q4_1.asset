@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Q4_1
   m_EditorClassIdentifier: 
   title: Kommunikationswege
-  question: "Welche sind die verbreitesten digitalen Kan\xE4le f\xFCr Kundenkommunikation?"
-  icon: {fileID: 21300000, guid: 88d72d9ca0fa0964397d9510ec3a9a81, type: 3}
+  question: "Welche sind die verbreitetsten digitalen Kan\xE4le f\xFCr Kundenkommunikation?"
+  icon: {fileID: 21300000, guid: 849f67d2c556cc74bb5967f07241797d, type: 3}
   answers:
   - answer: "Apps f\xFCr mobile Ger\xE4te"
     percents:

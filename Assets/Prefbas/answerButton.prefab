@@ -155,6 +155,7 @@ MonoBehaviour:
   fontColorActive: {r: 1, g: 1, b: 1, a: 1}
   fontColorPassive: {r: 0.6784314, g: 0.6745098, b: 0.6784314, a: 1}
   useOutline: 0
+  outlineImage: {fileID: 0}
 --- !u!1 &3108449636147123598
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,5 +233,5 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.75
   m_Text: Button

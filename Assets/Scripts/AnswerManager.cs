@@ -24,6 +24,9 @@ public class AnswerManager : MonoBehaviour
     private GameObject richtigImage;
     [SerializeField]
     private GameObject singlePanel;
+    public bool isActive { get; private set; }
+    [SerializeField]
+    private GameObject schätzungImage;
 
     private void Start()
     {
@@ -32,8 +35,9 @@ public class AnswerManager : MonoBehaviour
         multiPanel.SetActive(false);
     }
 
-    public void SetupAnswerMulti(QuestionContainer question, int userAnswerIndex, int categoryIndex)
+    public void SetupAnswerMulti(QuestionContainer question, int userAnswerIndex, int categoryIndex, bool categorySwitched)
     {
+        isActive = true;
         bool isUserAnswer = false;
         multiPanel.SetActive(true);
         singlePanel.SetActive(false);
@@ -58,30 +62,37 @@ public class AnswerManager : MonoBehaviour
                 question.answers[i].percents[categoryIndex], 
                 question.answers[i].isRightAnswer[categoryIndex],
                 isUserAnswer,
-                question.answers[i].answer);
+                question.answers[i].answer,
+                categorySwitched);
         }
     }
 
-    public void SetupAnswerSingle(float userValue, float questionValue)
+    public void SetupAnswerSingle(float userValue, float questionValue, bool categorySwitched)
     {
+        isActive = true;
         multiPanel.SetActive(false);
         singlePanel.SetActive(true);
-
-        ActivateBar(userValue, questionValue);
+        schätzungImage.SetActive(!categorySwitched);
+        ActivateBar(userValue, questionValue,categorySwitched);
     }
 
     public void DeactivatePanel()
     {
         multiPanel.SetActive(false);
         singlePanel.SetActive(false);
+        isActive = false;
     }
 
-    private void ActivateBar(float userInput, float questionInput)
+    private void ActivateBar(float userInput, float questionInput, bool categorySwitched)
     {
         userSlider.GetComponent<BarSlider>().SimpleActivateBar(userInput);
         answerSlider.GetComponent<BarSlider>().SimpleActivateBar(questionInput);
 
         richtigImage.SetActive(Mathf.Abs(userInput - questionInput) <= tollerance ? true : false);
+        if (categorySwitched)
+        {
+            richtigImage.SetActive(false);
+        }
     }
 
 

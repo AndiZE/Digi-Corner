@@ -43,7 +43,7 @@ public class BarSlider : MonoBehaviour
         slider.value = amount;
     }
 
-    public void ActivateBar(float amount, bool isRightAnswer, bool isUserAnswer, string info)
+    public void ActivateBar(float amount, bool isRightAnswer, bool isUserAnswer, string info, bool categorySwitched)
     {
         richtigImage?.SetActive(false);
         if (isRightAnswer || isUserAnswer)
@@ -54,9 +54,13 @@ public class BarSlider : MonoBehaviour
             {
                 selectedOutline.sprite = rightAnswer;
                 richtigImage.SetActive(true);
+                if (categorySwitched)
+                {
+                    richtigImage.SetActive(false);
+                }
             }
         }
-        else
+        else if (selectedOutline != null)
         {
             selectedOutline.enabled = false;
         }

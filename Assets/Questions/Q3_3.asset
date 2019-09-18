@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Q3_3
   m_EditorClassIdentifier: 
   title: Cloud Services
-  question: Wieviele Unternehmen nutzen bereits Cloud Services oder planen die Nutzung
+  question: Wie viele Unternehmen nutzen bereits Cloud Services oder planen die Nutzung
     innerhalb von 3 Jahren?
-  icon: {fileID: 21300000, guid: 0b3d45482e894c54a94ca71894b86510, type: 3}
+  icon: {fileID: 21300000, guid: 2574a7c970e50cf41829584f93686695, type: 3}
   answers:
   - answer: 
     percents:

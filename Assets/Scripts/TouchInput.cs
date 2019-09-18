@@ -18,10 +18,23 @@ public class TouchInput : MonoBehaviour
     private float[] splinePositions;
 
     private PanelSwitch panelSwitch;
+    [SerializeField]
+    private Animator arrowLeft;
+    [SerializeField]
+    private Animator arrowRight;
+
+    private int leftTrigger;
+    private int rightTrigger;
+    public bool inputProcessing;
+    [SerializeField]
+    private float thredhold = 100;
+
     private void Start()
     {
         Input.simulateMouseWithTouches = true;
         panelSwitch = GetComponent<PanelSwitch>();
+        leftTrigger = Animator.StringToHash("MoveLeft");
+        rightTrigger = Animator.StringToHash("MoveRight");
     }
 
     public void Init()
@@ -35,9 +48,10 @@ public class TouchInput : MonoBehaviour
     {
         isInputActive = active;
 
-        if (!active)
+        if (!active && !inputProcessing)
         {
-            if (xInput > 0)
+            inputProcessing = true;
+            if (xInput < 0)
             {
                 SwapRight();
             }
@@ -55,6 +69,11 @@ public class TouchInput : MonoBehaviour
         if (isInputActive && Input.touchCount == 1)
         {
             xInput += Input.GetTouch(0).deltaPosition.x;
+            if (Mathf.Abs(xInput) >= thredhold)
+            {
+                ActivateInput(false);
+
+            }
         }
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(2))
@@ -75,6 +94,9 @@ public class TouchInput : MonoBehaviour
             splineIcons[i].Rotate(GetNextPosition(splineIcons[i].currentPosition), panelSwitch.GetNextQuestionIcon());
         }
         panelSwitch.SwitchNextQuestion();
+        arrowLeft.SetTrigger(rightTrigger);
+        arrowRight.SetTrigger(rightTrigger);
+        Invoke("DelayedInput", splineIcons[0].GetSpeed());
     }
 
     private void SwapRight()
@@ -84,6 +106,9 @@ public class TouchInput : MonoBehaviour
             splineIcons[i].Rotate(GetPreviousPosition(splineIcons[i].currentPosition), panelSwitch.GetPreviousQuestionIcon());
         }
         panelSwitch.SwitchPreviousQuestion();
+        arrowLeft.SetTrigger(leftTrigger);
+        arrowRight.SetTrigger(leftTrigger);
+        Invoke("DelayedInput", splineIcons[0].GetSpeed());
     }
 
     private float GetNextPosition(float position)
@@ -114,11 +139,16 @@ public class TouchInput : MonoBehaviour
         return temp;
     }
 
+    private void DelayedInput()
+    {
+        inputProcessing = false;
+    }
+
     private float GetPreviousPosition(float position)
     {
 
         float temp = 0f;
-        for (int i = 0; i < splinePositions.Length-1; i++)
+        for (int i = 0; i < splinePositions.Length - 1; i++)
         {
             if (position - 0.2f < splinePositions[0] || position - 0.2f > 6)
             {
@@ -126,8 +156,8 @@ public class TouchInput : MonoBehaviour
                 break;
             }
 
-            if (position - 0.2f > splinePositions[i ] &&
-                position - 0.2f < splinePositions[i +1])
+            if (position - 0.2f > splinePositions[i] &&
+                position - 0.2f < splinePositions[i + 1])
             {
                 //Last Index moves to first position
                 temp = splinePositions[i];

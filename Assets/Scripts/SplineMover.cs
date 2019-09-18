@@ -24,6 +24,12 @@ public class SplineMover : MonoBehaviour
     [SerializeField]
     private float speed = 0.5f;
     private Coroutine coroutine;
+    public float GetSpeed() { return speed; }
+
+    [SerializeField]
+    private AnimationCurve scaleCurve;
+    [SerializeField]
+    private AnimationCurve speedCurve;
     void Start()
     {
         rect = GetComponent<RectTransform>();
@@ -31,7 +37,7 @@ public class SplineMover : MonoBehaviour
         iconImage = transform.GetChild(0).GetComponent<Image>();
     }
 
-    public void Rotate(float end ,Sprite image = null)
+    public void Rotate(float end, Sprite image = null)
     {
         if (coroutine == null)
         {
@@ -49,7 +55,7 @@ public class SplineMover : MonoBehaviour
         {
             start = 0f;
         }
-        
+
         float timer = 0;
         bool imageSwaped = false;
         //check if image needs to be Swaped
@@ -60,16 +66,21 @@ public class SplineMover : MonoBehaviour
         while (timer < duration)
         {
             float sampleFloat = Mathf.Lerp(start, end, timer / duration);
-
+            float lerp = Mathf.Lerp(0, 1, timer / duration);
             if (imageSwaped && sampleFloat > 3.1f && sampleFloat < 3.9f)
             {
                 iconImage.sprite = swapImage;
                 imageSwaped = false;
             }
 
-            rect.localPosition = spline.GetSample(sampleFloat).location + offset;
+            float mappedValue = Map(sampleFloat, start, end, 0, 1);
+            float speed = speedCurve.Evaluate(mappedValue);
+            float backmappedValue = Map(speed, 0, 1, start, end);
+
+            rect.localPosition = spline.GetSample(backmappedValue).location + offset;
             barImage.color = gradient.Evaluate(sampleFloat / spline.nodes.Count);
             iconImage.color = gradient.Evaluate(sampleFloat / spline.nodes.Count);
+            iconImage.rectTransform.localScale = Vector3.one * scaleCurve.Evaluate(sampleFloat / (spline.nodes.Count-1));
 
             timer += Time.deltaTime;
             yield return null;
@@ -78,6 +89,7 @@ public class SplineMover : MonoBehaviour
         rect.localPosition = spline.GetSample(end).location + offset;
         barImage.color = gradient.Evaluate(end / spline.nodes.Count);
         iconImage.color = gradient.Evaluate(end / spline.nodes.Count);
+        iconImage.rectTransform.localScale = Vector3.one * scaleCurve.Evaluate(end / (spline.nodes.Count-1));
 
         if (end > 6)
         {
@@ -94,9 +106,16 @@ public class SplineMover : MonoBehaviour
     public void Init(float startPosition, Sprite icon)
     {
         currentPosition = startPosition;
+        
         iconImage.sprite = icon;
         rect.localPosition = spline.GetSample(currentPosition).location + offset;
         barImage.color = gradient.Evaluate(currentPosition / spline.nodes.Count);
         iconImage.color = gradient.Evaluate(currentPosition / spline.nodes.Count);
+        iconImage.rectTransform.localScale = Vector3.one * scaleCurve.Evaluate(currentPosition / spline.nodes.Count);
+    }
+
+    float Map(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 }

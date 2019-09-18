@@ -14,6 +14,11 @@ public class ButtonDisplayer : MonoBehaviour
         return questions[currentIndex];
     }
 
+    public void OnTopicSwitched()
+    {
+        currentIndex = 0;
+    }
+
     public void NextQuestion()
     {
         currentIndex--;

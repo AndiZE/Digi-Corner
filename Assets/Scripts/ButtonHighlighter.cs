@@ -22,6 +22,10 @@ public class ButtonHighlighter : MonoBehaviour
     [SerializeField]
     private bool useOutline = true;
     private Outline outline;
+
+    [SerializeField]
+    private Sprite outlineImage;
+
     public void Init()
     {
         image = GetComponent<Image>();
@@ -37,9 +41,18 @@ public class ButtonHighlighter : MonoBehaviour
     {
         image.color = currentSelected ? buttonActiveColor : buttonPassiveColor;
         text.color = currentSelected ? fontColorActive : fontColorPassive;
-        if (useOutline && outline != null)
-            outline.effectDistance = currentSelected ? new Vector2(2f,0f) : new Vector2(2,2);
-            //outline.enabled = currentSelected ? false : true;
-    }
 
+        if (useOutline && outline != null)
+            outline.effectDistance = currentSelected ? new Vector2(2f, 0f) : new Vector2(2, 2);
+        //outline.enabled = currentSelected ? false : true;
+        if (useOutline && outlineImage != null)
+            if (currentSelected)
+            {
+                image.color = new Color(0, 0, 0, 0); ;
+            }
+            else
+            {
+                image.color = new Color(1, 1, 1, 1);
+            }
+    }
 }

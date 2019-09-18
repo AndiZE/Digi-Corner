@@ -232,3 +232,4 @@ MonoBehaviour:
   fontColorActive: {r: 0.9176471, g: 0.39607847, b: 0.043137256, a: 1}
   fontColorPassive: {r: 0.6784314, g: 0.6745098, b: 0.6784314, a: 1}
   useOutline: 1
+  outlineImage: {fileID: 0}
