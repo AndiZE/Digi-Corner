@@ -30,22 +30,27 @@ public class SplineMover : MonoBehaviour
     private AnimationCurve scaleCurve;
     [SerializeField]
     private AnimationCurve speedCurve;
+    [SerializeField]
+    private Gradient textGradient;
+    private Text questionTextField;
+
     void Start()
     {
         rect = GetComponent<RectTransform>();
         barImage = GetComponent<Image>();
         iconImage = transform.GetChild(0).GetComponent<Image>();
+        questionTextField = GetComponentInChildren<Text>();
     }
 
-    public void Rotate(float end, Sprite image = null)
+    public void Rotate(float end, string questionText, Sprite image = null)
     {
         if (coroutine == null)
         {
-            coroutine = StartCoroutine(Rotate(currentPosition, end, speed, image));
+            coroutine = StartCoroutine(Rotate(currentPosition, end, speed, questionText, image));
         }
     }
 
-    private IEnumerator Rotate(float start, float end, float duration, Sprite swapImage = null)
+    private IEnumerator Rotate(float start, float end, float duration,string questionText ,Sprite swapImage = null)
     {
         if (start < 0.5f && end > 4f)
         {
@@ -71,6 +76,7 @@ public class SplineMover : MonoBehaviour
             {
                 iconImage.sprite = swapImage;
                 imageSwaped = false;
+                questionTextField.text = questionText;
             }
 
             float mappedValue = Map(sampleFloat, start, end, 0, 1);
@@ -81,6 +87,7 @@ public class SplineMover : MonoBehaviour
             barImage.color = gradient.Evaluate(sampleFloat / spline.nodes.Count);
             iconImage.color = gradient.Evaluate(sampleFloat / spline.nodes.Count);
             iconImage.rectTransform.localScale = Vector3.one * scaleCurve.Evaluate(sampleFloat / (spline.nodes.Count-1));
+            questionTextField.color = textGradient.Evaluate(sampleFloat / (spline.nodes.Count-1));
 
             timer += Time.deltaTime;
             yield return null;
@@ -90,7 +97,7 @@ public class SplineMover : MonoBehaviour
         barImage.color = gradient.Evaluate(end / spline.nodes.Count);
         iconImage.color = gradient.Evaluate(end / spline.nodes.Count);
         iconImage.rectTransform.localScale = Vector3.one * scaleCurve.Evaluate(end / (spline.nodes.Count-1));
-
+        questionTextField.color = textGradient.Evaluate(end / (spline.nodes.Count-1));
         if (end > 6)
         {
             end = 0f;
@@ -103,7 +110,7 @@ public class SplineMover : MonoBehaviour
         coroutine = null;
     }
 
-    public void Init(float startPosition, Sprite icon)
+    public void Init(float startPosition, Sprite icon, string questionText)
     {
         currentPosition = startPosition;
         
@@ -112,6 +119,8 @@ public class SplineMover : MonoBehaviour
         barImage.color = gradient.Evaluate(currentPosition / spline.nodes.Count);
         iconImage.color = gradient.Evaluate(currentPosition / spline.nodes.Count);
         iconImage.rectTransform.localScale = Vector3.one * scaleCurve.Evaluate(currentPosition / spline.nodes.Count);
+        questionTextField.color = textGradient.Evaluate(currentPosition / (spline.nodes.Count - 1));
+        questionTextField.text = questionText;
     }
 
     float Map(float s, float a1, float a2, float b1, float b2)

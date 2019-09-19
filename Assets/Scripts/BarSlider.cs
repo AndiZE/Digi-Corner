@@ -20,6 +20,7 @@ public class BarSlider : MonoBehaviour
     private float fillDuration = 1f;
     [SerializeField]
     private GameObject richtigImage;
+    private Coroutine routine;
 
     private void Awake()
     {
@@ -41,6 +42,7 @@ public class BarSlider : MonoBehaviour
         }
 
         slider.value = amount;
+        routine = null;
     }
 
     public void ActivateBar(float amount, bool isRightAnswer, bool isUserAnswer, string info, bool categorySwitched)
@@ -64,13 +66,21 @@ public class BarSlider : MonoBehaviour
         {
             selectedOutline.enabled = false;
         }
-        StartCoroutine(FillBar(amount));
+        if ( routine != null)
+        {
+            StopCoroutine(routine);
+        }
+        routine = StartCoroutine(FillBar(amount));
         infoText.text = info;
         userSelectionText.SetActive(isUserAnswer);
     }
 
     public void SimpleActivateBar(float amount)
     {
-        StartCoroutine(FillBar(amount));
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+        }
+        routine = StartCoroutine(FillBar(amount));
     }
 }

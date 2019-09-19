@@ -10,6 +10,7 @@ public class ScreenSaver : MonoBehaviour
     private GameObject infoPanel;
     [SerializeField]
     private float inactiveTime = 120f;
+    [SerializeField]
     private float timer;
     private bool isActive = true;
     void Update()

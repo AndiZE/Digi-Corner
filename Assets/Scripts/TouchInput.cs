@@ -39,9 +39,9 @@ public class TouchInput : MonoBehaviour
 
     public void Init()
     {
-        splineIcons[0].Init(splinePositions[0], panelSwitch.GetCurrentQuestionIcon());
-        splineIcons[1].Init(splinePositions[1], panelSwitch.GetSecondQuestionIcon());
-        splineIcons[2].Init(splinePositions[2], panelSwitch.GetLastQuestionIcon());
+        splineIcons[0].Init(splinePositions[0], panelSwitch.GetCurrentQuestionIcon(), panelSwitch.GetCurrentQuestionText());
+        splineIcons[1].Init(splinePositions[1], panelSwitch.GetSecondQuestionIcon(), panelSwitch.GetSecondQuestionText());
+        splineIcons[2].Init(splinePositions[2], panelSwitch.GetLastQuestionIcon(), panelSwitch.GetLastQuestionText());
     }
 
     public void ActivateInput(bool active)
@@ -91,7 +91,7 @@ public class TouchInput : MonoBehaviour
     {
         for (int i = 0; i < splineIcons.Length; i++)
         {
-            splineIcons[i].Rotate(GetNextPosition(splineIcons[i].currentPosition), panelSwitch.GetNextQuestionIcon());
+            splineIcons[i].Rotate(GetNextPosition(splineIcons[i].currentPosition), panelSwitch.GetNextQuestionText(), panelSwitch.GetNextQuestionIcon());
         }
         panelSwitch.SwitchNextQuestion();
         arrowLeft.SetTrigger(rightTrigger);
@@ -103,7 +103,7 @@ public class TouchInput : MonoBehaviour
     {
         for (int i = 0; i < splineIcons.Length; i++)
         {
-            splineIcons[i].Rotate(GetPreviousPosition(splineIcons[i].currentPosition), panelSwitch.GetPreviousQuestionIcon());
+            splineIcons[i].Rotate(GetPreviousPosition(splineIcons[i].currentPosition), panelSwitch.GetPreviousQuestionText(), panelSwitch.GetPreviousQuestionIcon());
         }
         panelSwitch.SwitchPreviousQuestion();
         arrowLeft.SetTrigger(leftTrigger);

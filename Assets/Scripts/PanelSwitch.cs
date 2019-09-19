@@ -32,6 +32,8 @@ public class PanelSwitch : MonoBehaviour
     private Text titleText;
     [SerializeField]
     private Text questionText;
+    [SerializeField]
+    private AnimationCurve alphaTextCurve;
 
     [SerializeField]
     private Button okButton;
@@ -47,6 +49,7 @@ public class PanelSwitch : MonoBehaviour
     private AnswerManager answerManager;
     private int currentAnswerIndex;
     private float answerSliderValue;
+    private Coroutine fadeRoutine;
 
     void Start()
     {
@@ -102,15 +105,11 @@ public class PanelSwitch : MonoBehaviour
         SwitchCategory(currentCategory);
         okButton.onClick.AddListener(delegate { OnOkButtonClicked(); });
         answerSlider.GetComponent<Slider>().onValueChanged.AddListener(OnAnswerSliderValueChanged);
+        answerSlider.GetComponent<FadeObject>().Init();
         ActivateOKButton(false);
     }
 
-    private void OnAnswerSliderValueChanged(float value)
-    {
-        answerSliderValue = value;
-        ActivateOKButton(true);
-    }
-
+    #region Screen Saver
     private void CheckForScreensaverInput()
     {
         screenSaver.GetInput(currentCategory, currentTopic);
@@ -131,8 +130,19 @@ public class PanelSwitch : MonoBehaviour
         answerManager.DeactivatePanel();
     }
 
+    #endregion
+
+    #region Input
+    private void OnAnswerSliderValueChanged(float value)
+    {
+        answerSliderValue = value;
+        ActivateOKButton(true);
+        CheckForScreensaverInput();
+    }
+
     private void OnOkButtonClicked(bool categorySwitched = false)
     {
+        CheckForScreensaverInput();
         var currentQuestion = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         if (currentQuestion.hasSlider)
         {
@@ -145,6 +155,18 @@ public class PanelSwitch : MonoBehaviour
         currentAnswerIndex = -1;
         answerSliderValue = 0;
         answerSlider.GetComponent<Slider>().value = 0f;
+    }
+
+    private void OnAnswerClicked(int Index)
+    {
+        CheckForScreensaverInput();
+        ActivateOKButton(true);
+        currentAnswerIndex = Index;
+
+        for (int i = 0; i < answerButtons.Count; i++)
+        {
+            answerButtons[i].GetComponent<ButtonHighlighter>().SelectButton(i == currentAnswerIndex);
+        }
     }
 
     public void SwitchTopic(int topicIndex)
@@ -201,66 +223,171 @@ public class PanelSwitch : MonoBehaviour
         }
     }
 
-    private void SetupAnswers(QuestionContainer question)
+    #endregion
+
+    #region Questions
+    private IEnumerator SetupAnswers(float fadeDuration, QuestionContainer question)
     {
-        //Clear Old Buttons and Remove from Panel
-        foreach (var item in answerButtons)
+        float time = 0f;
+        bool halfReached = false;
+        bool onSecondHalfenter = true;
+        float value = 0f;
+        FadeObject answerSliderFade = answerSlider.GetComponent<FadeObject>();
+        List<FadeObject> answerFade = new List<FadeObject>();
+        foreach (var button in answerButtons)
         {
-            Destroy(item);
-        }
-        answerButtons.Clear();
-
-        if (question.hasSlider)
-        {
-            answerSlider.SetActive(true);
-            return;
-        }
-        else
-        {
-            answerSlider.SetActive(false);
+            answerFade.Add(button.GetComponent<FadeObject>());
         }
 
-
-        Transform selectedRow;
-
-        int count = question.answers.Length;
-        for (int i = 0; i < count; i++)
+        while (time < fadeDuration)
         {
-            selectedRow = GetRow(question.answers.Length, i);
+            time += Time.deltaTime;
+            value = alphaTextCurve.Evaluate(time / fadeDuration);
+            //Switch on Halftime
+            if (!halfReached && time > fadeDuration / 2f)
+            {
+                halfReached = true;
+            }
 
-            var button = Instantiate(answerButtonPrefab, selectedRow);
-            int index = i;
-            button.GetComponent<Button>().onClick.AddListener(delegate { OnAnswerClicked(index); });
-            button.GetComponentInChildren<Text>().text = question.answers[i].answer;
-            button.GetComponent<ButtonHighlighter>().Init();
-            button.GetComponent<ButtonHighlighter>().SelectButton(false);
-            answerButtons.Add(button);
+            //First Half
+            if (!halfReached)
+            {
+                //Slider
+                if (answerSlider.activeSelf)
+                {
+                    answerSliderFade.SetOpacity(value);
+                }
+                else
+                {
+                    foreach (var answer in answerFade)
+                    {
+                        answer.SetOpacity(value);
+                    }
+                }
+            }
+            //Second Half
+            else
+            {
+                //End First Half Deactivation
+                if (onSecondHalfenter)
+                {
+                    //Remove old Buttons
+                    foreach (var item in answerButtons)
+                    {
+                        Destroy(item);
+                    }
+                    answerButtons.Clear();
+                    answerFade.Clear();
+
+                    //Check for Sliders
+                    if (answerSlider.activeSelf && !question.hasSlider)
+                    {
+                        answerSliderFade.SetOpacity(0);
+                        answerSlider.SetActive(false);
+                    }
+
+                    //Add New Buttons
+                    Transform selectedRow;
+
+                    int count = question.answers.Length;
+                    for (int i = 0; i < count; i++)
+                    {
+                        selectedRow = GetRow(question.answers.Length, i);
+
+                        var button = Instantiate(answerButtonPrefab, selectedRow);
+                        int index = i;
+                        button.GetComponent<Button>().onClick.AddListener(delegate { OnAnswerClicked(index); });
+                        button.GetComponentInChildren<Text>().text = question.answers[i].answer;
+                        button.GetComponent<ButtonHighlighter>().Init();
+                        button.GetComponent<ButtonHighlighter>().SelectButton(false);
+                        button.GetComponent<FadeObject>().Init();
+                        button.GetComponent<FadeObject>().SetOpacity(0f);
+                        answerFade.Add(button.GetComponent<FadeObject>());
+                        answerButtons.Add(button);
+                    }
+                    onSecondHalfenter = false;
+                }
+
+                //Slider
+                if (question.hasSlider)
+                {
+                    if (!answerSlider.activeSelf)
+                    {
+                        answerSlider.SetActive(true);
+                    }
+                    answerSliderFade.SetOpacity(value);
+                }
+
+                //Multi Choice
+                else
+                {
+                    foreach (var answer in answerFade)
+                    {
+                        answer.SetOpacity(value);
+                    }
+                }
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeSlider(float duration)
+    {
+        float time = 0f;
+
+        while (time < duration)
+        {
+            yield return null;
         }
     }
 
     private void OnQuestionChanged(QuestionContainer question)
     {
+        CheckForScreensaverInput();
         answerManager.DeactivatePanel();
-        SetupAnswers(question);
-        titleText.text = question.title;
-        questionText.text = question.question;
         ActivateOKButton(false);
+
+        if (fadeRoutine == null)
+        {
+            fadeRoutine = StartCoroutine(FadeQuestion(1f, question));
+            StartCoroutine(SetupAnswers(1, question));
+        }
     }
 
-    private void OnAnswerClicked(int Index)
+    private IEnumerator FadeQuestion(float duration,  QuestionContainer question)
     {
-        ActivateOKButton(true);
-        currentAnswerIndex = Index;
+        float time = 0f;
+        bool switched = false;
+        Color titleColor = titleText.color;
+        Color questionColor = questionText.color;
 
-        for (int i = 0; i < answerButtons.Count; i++)
+        while (time < duration)
         {
-            answerButtons[i].GetComponent<ButtonHighlighter>().SelectButton(i == currentAnswerIndex);
+            time += Time.deltaTime;
+            float value = alphaTextCurve.Evaluate(time / duration);
+            questionColor.a = titleColor.a = value;
+            titleText.color = titleColor;
+            questionText.color = questionColor;
+
+            if (!switched && time > duration / 2f)
+            {
+                switched = true;
+                titleText.text = question.title;
+                questionText.text = question.question;
+            }
+
+            yield return null;
         }
 
+        questionColor.a = titleColor.a = alphaTextCurve.Evaluate(1f);
+        titleText.color = titleColor;
+        questionText.color = questionColor;
+        fadeRoutine = null;
     }
 
     public void SwitchNextQuestion()
     {
+        CheckForScreensaverInput();
         topicButtons[currentTopic].GetComponent<ButtonDisplayer>().NextQuestion();
         var question = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         OnQuestionChanged(question);
@@ -268,10 +395,13 @@ public class PanelSwitch : MonoBehaviour
 
     public void SwitchPreviousQuestion()
     {
+        CheckForScreensaverInput();
         topicButtons[currentTopic].GetComponent<ButtonDisplayer>().PreviousQuestion();
         var question = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         OnQuestionChanged(question);
     }
+
+    #endregion
     private Transform GetRow(int maxQuestions, int currentIteration)
     {
         Transform selected = null;
@@ -300,8 +430,6 @@ public class PanelSwitch : MonoBehaviour
                     break;
                 }
         }
-
-
         return selected;
     }
 
@@ -309,7 +437,7 @@ public class PanelSwitch : MonoBehaviour
     {
         okButton.interactable = activate;
     }
-
+    #region Icons
     public Sprite GetNextQuestionIcon()
     {
         return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetNextIcon();
@@ -332,5 +460,30 @@ public class PanelSwitch : MonoBehaviour
     {
         return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetLastIcon();
     }
+    #endregion
 
+    #region Question Texts
+    public string GetNextQuestionText()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetNextQuestionText();
+    }
+
+    public string GetPreviousQuestionText()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetPreviousQuestionText();
+    }
+
+    public string GetCurrentQuestionText()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestionText();
+    }
+    public string GetSecondQuestionText()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetSecondQuestionText();
+    }
+    public string GetLastQuestionText()
+    {
+        return topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetLastQuestionText();
+    }
+    #endregion
 }

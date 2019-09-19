@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7574325278770991574}
   - component: {fileID: -9022240625754510778}
   - component: {fileID: 4528966336172817662}
+  - component: {fileID: 5823479121851149702}
   m_Layer: 5
   m_Name: answerButton
   m_TagString: Untagged
@@ -156,6 +157,18 @@ MonoBehaviour:
   fontColorPassive: {r: 0.6784314, g: 0.6745098, b: 0.6784314, a: 1}
   useOutline: 0
   outlineImage: {fileID: 0}
+--- !u!114 &5823479121851149702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940345003432771700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453cc94ce2de3824782d64056ca419d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3108449636147123598
 GameObject:
   m_ObjectHideFlags: 0
