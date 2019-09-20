@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TouchInput : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class TouchInput : MonoBehaviour
         panelSwitch = GetComponent<PanelSwitch>();
         leftTrigger = Animator.StringToHash("MoveLeft");
         rightTrigger = Animator.StringToHash("MoveRight");
+        arrowLeft.GetComponentInChildren<Button>().onClick.AddListener(delegate { SwapLeft(); });
+        arrowRight.GetComponentInChildren<Button>().onClick.AddListener(delegate { SwapRight(); });
+
     }
 
     public void Init()
@@ -59,7 +63,6 @@ public class TouchInput : MonoBehaviour
             {
                 SwapLeft();
             }
-
             xInput = 0;
         }
     }
