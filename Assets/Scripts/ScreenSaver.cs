@@ -9,6 +9,8 @@ public class ScreenSaver : MonoBehaviour
     [SerializeField]
     private GameObject infoPanel;
     [SerializeField]
+    private GameObject startPanel;
+    [SerializeField]
     private float inactiveTime = 120f;
     [SerializeField]
     private float timer;
@@ -31,6 +33,7 @@ public class ScreenSaver : MonoBehaviour
         if (categorie >= 0 && topic >= 0)
         {
             UpdateScreenSaver(false);
+            startPanel.SetActive(false);
         }
         timer = 0;
     }
@@ -43,6 +46,7 @@ public class ScreenSaver : MonoBehaviour
         {
             GetComponent<PanelSwitch>().ActivateScreensaver();
             infoPanel.SetActive(false);
+            startPanel.SetActive(false);
         }
     }
 }
