@@ -146,7 +146,7 @@ public class PanelSwitch : MonoBehaviour
         var currentQuestion = topicButtons[currentTopic].GetComponent<ButtonDisplayer>().GetCurrentQuestion();
         if (currentQuestion.hasSlider)
         {
-            answerManager.SetupAnswerSingle(answerSliderValue, currentQuestion.answers[0].percents[currentCategory], categorySwitched);
+            answerManager.SetupAnswerSingle(currentQuestion, answerSliderValue, currentQuestion.answers[0].percents[currentCategory], categorySwitched);
         }
         else
         {

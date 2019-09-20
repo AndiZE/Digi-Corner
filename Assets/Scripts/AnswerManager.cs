@@ -10,6 +10,8 @@ public class AnswerManager : MonoBehaviour
     private Transform answerBarRoot;
     [SerializeField]
     private GameObject multiPanel;
+    [SerializeField]
+    private Text multiQuestionText;
 
     private BarSlider [] sliders;
 
@@ -27,6 +29,8 @@ public class AnswerManager : MonoBehaviour
     public bool isActive { get; private set; }
     [SerializeField]
     private GameObject schätzungImage;
+    [SerializeField]
+    private Text singleQuestionText;
 
     private void Start()
     {
@@ -41,6 +45,7 @@ public class AnswerManager : MonoBehaviour
         bool isUserAnswer = false;
         multiPanel.SetActive(true);
         singlePanel.SetActive(false);
+        multiQuestionText.text = question.question;
         for (int i = 0; i < sliders.Length; i++)
         {
             //Disable Leftover Sliders
@@ -67,12 +72,14 @@ public class AnswerManager : MonoBehaviour
         }
     }
 
-    public void SetupAnswerSingle(float userValue, float questionValue, bool categorySwitched)
+    public void SetupAnswerSingle(QuestionContainer question ,float userValue, float questionValue, bool categorySwitched)
     {
         isActive = true;
         multiPanel.SetActive(false);
         singlePanel.SetActive(true);
+        singleQuestionText.text = question.question;
         schätzungImage.SetActive(!categorySwitched);
+        userSlider.gameObject.SetActive(!categorySwitched);
         ActivateBar(userValue, questionValue,categorySwitched);
     }
 
@@ -85,7 +92,10 @@ public class AnswerManager : MonoBehaviour
 
     private void ActivateBar(float userInput, float questionInput, bool categorySwitched)
     {
-        userSlider.GetComponent<BarSlider>().SimpleActivateBar(userInput);
+        if (!categorySwitched)
+        {
+            userSlider.GetComponent<BarSlider>().SimpleActivateBar(userInput);
+        }
         answerSlider.GetComponent<BarSlider>().SimpleActivateBar(questionInput);
 
         richtigImage.SetActive(Mathf.Abs(userInput - questionInput) <= tollerance ? true : false);
