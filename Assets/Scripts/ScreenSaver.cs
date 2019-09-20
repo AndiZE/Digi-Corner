@@ -14,15 +14,16 @@ public class ScreenSaver : MonoBehaviour
     private float inactiveTime = 120f;
     [SerializeField]
     private float timer;
-    private bool isActive = true;
+    private bool isActive;
     void Update()
     {
 
         if (!isActive && timer > inactiveTime)
         {
             UpdateScreenSaver(true);
+            isActive = true;
         }
-        else
+        else if (timer < inactiveTime)
         {
             timer += Time.deltaTime;
         }
@@ -49,4 +50,9 @@ public class ScreenSaver : MonoBehaviour
             startPanel.SetActive(false);
         }
     }
+    public void ResetTimer()
+    {
+        timer = 0f;
+    }
+
 }

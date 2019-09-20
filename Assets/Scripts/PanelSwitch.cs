@@ -103,7 +103,7 @@ public class PanelSwitch : MonoBehaviour
         }
         currentCategory = -1;
         SwitchCategory(currentCategory);
-        okButton.onClick.AddListener(delegate { OnOkButtonClicked(); });
+        okButton.GetComponent<ButtonAnimator>().onAnimationFinished.AddListener(delegate { OnOkButtonClicked(); });
         answerSlider.GetComponent<Slider>().onValueChanged.AddListener(OnAnswerSliderValueChanged);
         answerSlider.GetComponent<FadeObject>().Init();
         ActivateOKButton(false);
@@ -128,6 +128,7 @@ public class PanelSwitch : MonoBehaviour
         SwitchCategory(currentCategory);
         isActive = false;
         answerManager.DeactivatePanel();
+        screenSaver.GetInput(currentCategory, currentTopic);
     }
 
     #endregion

@@ -104,6 +104,4 @@ public class AnswerManager : MonoBehaviour
             richtigImage.SetActive(false);
         }
     }
-
-
 }

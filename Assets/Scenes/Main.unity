@@ -2269,6 +2269,7 @@ GameObject:
   - component: {fileID: 590710687}
   - component: {fileID: 590710686}
   - component: {fileID: 590710685}
+  - component: {fileID: 590710688}
   m_Layer: 5
   m_Name: ButtonOK
   m_TagString: Untagged
@@ -2378,6 +2379,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590710683}
   m_CullTransparentMesh: 0
+--- !u!114 &590710688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590710683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ccad22cc390c64e9bcd190e8fcb6c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1.15
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 0.5
+  onAnimationFinished:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &596719847
 GameObject:
   m_ObjectHideFlags: 0
@@ -3668,10 +3720,10 @@ RectTransform:
   m_Father: {fileID: 958417016}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 60}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &823916237
 MonoBehaviour:
@@ -4116,21 +4168,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5730306299589874705, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299589874705, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299589874705, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 30
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08e187473ecb6f747a6a9a076f27dd98, type: 3}
 --- !u!224 &950981795 stripped
@@ -4520,6 +4557,7 @@ GameObject:
   - component: {fileID: 978034264}
   - component: {fileID: 978034263}
   - component: {fileID: 978034262}
+  - component: {fileID: 978034265}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -4588,18 +4626,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 978034263}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1786843512}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &978034263
@@ -4639,6 +4666,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978034260}
   m_CullTransparentMesh: 0
+--- !u!114 &978034265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978034260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ccad22cc390c64e9bcd190e8fcb6c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1.15
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 0.5
+  onAnimationFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1786843512}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1921832437}
+        m_MethodName: ResetTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1054523042
 GameObject:
   m_ObjectHideFlags: 0
@@ -5898,6 +5998,7 @@ GameObject:
   - component: {fileID: 1607604158}
   - component: {fileID: 1607604157}
   - component: {fileID: 1607604156}
+  - component: {fileID: 1607604159}
   m_Layer: 5
   m_Name: Start_Button
   m_TagString: Untagged
@@ -5966,29 +6067,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1607604157}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 957176410}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1418808463}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1607604157
@@ -6028,6 +6107,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607604154}
   m_CullTransparentMesh: 0
+--- !u!114 &1607604159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607604154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ccad22cc390c64e9bcd190e8fcb6c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1.15
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 0.5
+  onAnimationFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 957176410}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1418808463}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1921832437}
+        m_MethodName: ResetTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &1611435139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8478,74 +8641,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
         type: 3}
-      propertyPath: speedCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
       propertyPath: spline
       value: 
       objectReference: {fileID: 690778320}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: speed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: gradient.key1.a
-      value: 0.6666667
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: gradient.key4.a
-      value: 0.6666667
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: gradient.key5.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: gradient.atime1
-      value: 17694
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: gradient.atime2
-      value: 24672
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: gradient.atime3
-      value: 32382
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: gradient.atime4
-      value: 42405
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: gradient.atime5
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: gradient.m_NumAlphaKeys
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: speedCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299768904395, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: speedCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5730306299768904392, guid: 08e187473ecb6f747a6a9a076f27dd98,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8650,26 +8748,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299589874705, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299589874705, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5730306299589874705, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 8941843596382968922, guid: 08e187473ecb6f747a6a9a076f27dd98,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08e187473ecb6f747a6a9a076f27dd98, type: 3}
