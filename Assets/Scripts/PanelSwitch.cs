@@ -34,6 +34,9 @@ public class PanelSwitch : MonoBehaviour
     private Text questionText;
     [SerializeField]
     private AnimationCurve alphaTextCurve;
+    [SerializeField]
+    private AnimationCurve alphaTextAnswerBlendCurve;
+
 
     [SerializeField]
     private Button okButton;
@@ -153,6 +156,10 @@ public class PanelSwitch : MonoBehaviour
         {
             answerManager.SetupAnswerMulti(currentQuestion, currentAnswerIndex, currentCategory, categorySwitched);
         }
+        if (!categorySwitched && currentAnswerIndex >= 0)
+        {
+            answerButtons[currentAnswerIndex].GetComponent<ButtonHighlighter>().SelectButton(false);
+        }
         currentAnswerIndex = -1;
         answerSliderValue = 0;
         answerSlider.GetComponent<Slider>().value = 0f;
@@ -227,7 +234,7 @@ public class PanelSwitch : MonoBehaviour
     #endregion
 
     #region Questions
-    private IEnumerator SetupAnswers(float fadeDuration, QuestionContainer question)
+    private IEnumerator SetupAnswers(float fadeDuration, QuestionContainer question, AnimationCurve usedCurve)
     {
         float time = 0f;
         bool halfReached = false;
@@ -243,7 +250,7 @@ public class PanelSwitch : MonoBehaviour
         while (time < fadeDuration)
         {
             time += Time.deltaTime;
-            value = alphaTextCurve.Evaluate(time / fadeDuration);
+            value = usedCurve.Evaluate(time / fadeDuration);
             //Switch on Halftime
             if (!halfReached && time > fadeDuration / 2f)
             {
@@ -345,17 +352,18 @@ public class PanelSwitch : MonoBehaviour
     private void OnQuestionChanged(QuestionContainer question)
     {
         CheckForScreensaverInput();
+        AnimationCurve usedCurve = answerManager.isActive ? alphaTextAnswerBlendCurve : alphaTextCurve;
         answerManager.DeactivatePanel();
         ActivateOKButton(false);
 
         if (fadeRoutine == null)
         {
-            fadeRoutine = StartCoroutine(FadeQuestion(1f, question));
-            StartCoroutine(SetupAnswers(1, question));
+            fadeRoutine = StartCoroutine(FadeQuestion(1f, question, usedCurve));
+            StartCoroutine(SetupAnswers(1, question, usedCurve));
         }
     }
 
-    private IEnumerator FadeQuestion(float duration,  QuestionContainer question)
+    private IEnumerator FadeQuestion(float duration,  QuestionContainer question, AnimationCurve alphaCurve)
     {
         float time = 0f;
         bool switched = false;
@@ -365,7 +373,7 @@ public class PanelSwitch : MonoBehaviour
         while (time < duration)
         {
             time += Time.deltaTime;
-            float value = alphaTextCurve.Evaluate(time / duration);
+            float value = alphaCurve.Evaluate(time / duration);
             questionColor.a = titleColor.a = value;
             titleText.color = titleColor;
             questionText.color = questionColor;
@@ -380,7 +388,7 @@ public class PanelSwitch : MonoBehaviour
             yield return null;
         }
 
-        questionColor.a = titleColor.a = alphaTextCurve.Evaluate(1f);
+        questionColor.a = titleColor.a = alphaCurve.Evaluate(1f);
         titleText.color = titleColor;
         questionText.color = questionColor;
         fadeRoutine = null;
