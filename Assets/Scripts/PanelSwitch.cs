@@ -356,6 +356,9 @@ public class PanelSwitch : MonoBehaviour
         answerManager.DeactivatePanel();
         ActivateOKButton(false);
 
+        answerSliderValue = 0;
+        answerSlider.GetComponent<Slider>().value = 0f;
+
         if (fadeRoutine == null)
         {
             fadeRoutine = StartCoroutine(FadeQuestion(1f, question, usedCurve));
